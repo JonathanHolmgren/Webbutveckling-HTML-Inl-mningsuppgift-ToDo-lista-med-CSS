@@ -14,11 +14,12 @@ button.addEventListener("click", function () {
   const text = input.value;
 
   if (text.length == 0) {
-    document.querySelector("small").innerText = "You need to write something";
-    document.querySelector("small").setAttribute("class", "empty");
+    document.querySelector("small").innerText = "Input must not be empty";
+    document.querySelector("small").setAttribute("class", "emptyAni");
     return;
   } else {
     document.querySelector("small").innerText = "";
+    document.querySelector("small").setAttribute("class", "empty");
   }
 
   const item = document.createElement("li");
@@ -29,23 +30,23 @@ button.addEventListener("click", function () {
   itemLabel.innerText = text;
   item.appendChild(itemLabel);
   listCount++;
-  label.innerText = `${completedCount} tasks are completed`;
+  label.innerText = `${completedCount}  completed`;
 
   const bin = document.createElement("span");
-  bin.innerHTML = "delete";
+  bin.innerHTML = "🗑️";
   bin.setAttribute("class", "material-symbols-outlined");
   item.appendChild(bin);
 
   itemLabel.addEventListener("click", function () {
-    if (item.getAttribute("class") == "completed") {
-      item.setAttribute("class", "");
+    if (itemLabel.getAttribute("class") == "completed") {
+      itemLabel.setAttribute("class", "");
       completedCount--;
     } else {
-      item.setAttribute("class", "completed", "id", "trashcan");
+      itemLabel.setAttribute("class", "completed");
       completedCount++;
     }
 
-    label.innerText = `${completedCount} tasks are completed`;
+    label.innerText = `${completedCount} completed`;
   });
 
   bin.addEventListener("click", function () {
@@ -53,11 +54,11 @@ button.addEventListener("click", function () {
     delete todoArray[nummer];
     item.remove();
     listCount--;
-    if (item.getAttribute("class") == "completed") {
+    if (itemLabel.getAttribute("class") == "completed") {
       completedCount--;
     }
 
-    label.innerText = `${completedCount} tasks are completed`;
+    label.innerText = `${completedCount} completed`;
   });
 
   input.value = "";
